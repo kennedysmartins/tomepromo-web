@@ -105,7 +105,7 @@ const CreateProduct = () => {
       const amazonData = "tomepromo06-20"
       const magazineData = "magazinetomepromo154"
       const response = await axios.post(
-        `${apiUrl}/products/extractor2`,
+        `${apiUrl}/api/extractor`,
         {
           url,
           amazon: amazonData,
