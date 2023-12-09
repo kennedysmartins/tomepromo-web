@@ -116,7 +116,7 @@ export default function auth() {
               <IconButton variant="soft" color="primary" size="sm">
                 <BadgeRoundedIcon />
               </IconButton>
-              <Typography level="title-lg">OffShop</Typography>
+              <Typography level="title-lg">TomePromo</Typography>
             </Box>
             <ColorSchemeToggle />
           </Box>
@@ -158,7 +158,7 @@ export default function auth() {
                 color="neutral"
                 fullWidth
                 startDecorator={<GoogleIcon />}
-                onClick={() => signIn("google")}
+                onClick={() => signIn()}
               >
                 Continue com o Google
               </Button>
