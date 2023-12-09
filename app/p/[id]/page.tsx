@@ -164,7 +164,7 @@ const ProductPage = async ({ params: { id } }: Params) => {
               </IconButton>
 
               {product.website === "Amazon" && (
-                <Link href={`https://amzn.to/3VxSIVG`}>
+                <Link href={`https://amzn.to/46PLQHd`}>
                   <Button
                     startDecorator={<AddBox />}
                     size={"sm"}
