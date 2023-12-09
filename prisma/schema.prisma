@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Products {
+  id                      Int                       @id @default(autoincrement())
+  currency                String?
+  imagePath                  String                    @db.VarChar(999)
+  title                   String?
+  currentPrice            Float?
+  originalPrice           Float?
+  lowestPrice             Float?
+  highestPrice            Float?
+  averagePrice            Float?
+  recurrencePrice         Float?
+  discountRate            Float?
+  buyLink                 String                    @db.VarChar(999)
+  announcement1           String?
+  productCode             String?
+  catchyText              String?
+  conditionPayment        String?
+  website                 String?
+  cupom                   String?
+  cupomValue              String?
+  conditionCupom              String?
+  description             String?
+  category                String?
+  reviewsCount            Int?
+  shopName                String?
+  isOutOfStock            Boolean                   @default(false)
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+  published               Boolean                   @default(false)
+  groups                  ProductGroup[]            @relation("ProductGroupAssociation")
+  ProductGroupAssociation ProductGroupAssociation[]
+  clicks                  Clicks[]
+}
+
+model ProductGroup {
+  id                      Int                       @id @default(autoincrement())
+  name                    String
+  imagePath               String?
+  description             String?
+  clicks                  Int                       @default(0)
+  published               Boolean                   @default(false)
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+  products                Products[]                @relation("ProductGroupAssociation")
+  ProductGroupAssociation ProductGroupAssociation[]
+  Clicks                  Clicks[]
+}
+
+model ProductGroupAssociation {
+  productId Int
+  groupId   Int
+  product   Products     @relation(fields: [productId], references: [id])
+  group     ProductGroup @relation(fields: [groupId], references: [id])
+
+  @@id([productId, groupId])
+}
+
+// Novas tabelas
+model Clients {
+  clientId  Int    @id
+  name      String
+  email     String
+  password  String
+  imagePath String
+
+  stores Stores[]
+}
+
+model Stores {
+  storeId   Int    @id
+  storeName String
+
+  clientId Int
+  client   Clients @relation(fields: [clientId], references: [clientId])
+
+  users Users[]
+}
+
+model Users {
+  userId   Int    @id
+  username String
+  password String
+  email    String
+  type     String
+  stauts   String
+
+  storeId Int
+  store   Stores @relation(fields: [storeId], references: [storeId])
+}
+
+model Clicks {
+  id        Int      @id @default(autoincrement())
+  productId Int?
+  groupId   Int?
+  clickedAt DateTime @default(now())
+  // Adicione outros campos conforme necessário
+
+  // Relacionamento com produtos e grupos
+  product Products?     @relation(fields: [productId], references: [id])
+  group   ProductGroup? @relation(fields: [groupId], references: [id])
+}
