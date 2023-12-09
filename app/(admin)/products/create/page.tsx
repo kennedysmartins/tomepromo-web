@@ -402,13 +402,26 @@ if (product.cupomValue) {
       const defaultCurrencyConfig = {
         size: 38,
         weight: 700,
-        margin: 25,
+        margin: 42,
+      }
+
+      const defaultOldCurrencyConfig = {
+        size: 34,
+        weight: 700,
+        margin: 22,
       }
 
       const defaultPriceConfig = {
-        x: 280,
+        x: 300,
         size: 58,
         y: 1420,
+        weight: 800,
+      }
+
+      const defaultOldPriceConfig = {
+        x: 280,
+        size: 48,
+        y: 1350,
         weight: 800,
       }
 
@@ -424,9 +437,18 @@ if (product.cupomValue) {
         ...defaultPriceConfig,
         ...customConfigs.priceConfig,
       }
+      const priceOldConfig = {
+        ...defaultOldPriceConfig,
+        ...customConfigs.priceOldConfig,
+      }
       const priceCurrencyConfig = {
         ...defaultCurrencyConfig,
         ...customConfigs.priceCurrencyConfig,
+      }
+
+      const priceOldCurrencyConfig = {
+        ...defaultOldCurrencyConfig,
+        ...customConfigs.priceOldCurrencyConfig,
       }
 
       const messageContent = messageTemplate(id)
@@ -442,7 +464,7 @@ if (product.cupomValue) {
 
       // Desenha a imagem de fundo
       const backgroundImage = new Image()
-      backgroundImage.src = "/template-promotech.png" // Substitua pelo caminho da sua imagem de fundo
+      backgroundImage.src = "/template-tomepromo.png" // Substitua pelo caminho da sua imagem de fundo
       backgroundImage.onload = () => {
         ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height)
 
@@ -489,6 +511,27 @@ if (product.cupomValue) {
       ctx.fillText(titleLine1, titleConfig.x, titleConfig.y)
       ctx.fillText(titleLine2, titleConfig.x, titleConfig.y + 50) // Ajuste a posição conforme necessário
 
+      // Verifica se product.originalPrice existe
+if (Number(product.originalPrice) > 0) {
+  // Adiciona o preço antigo abaixo do título
+  ctx.fillStyle = "#3f3f3f"
+  ctx.font = `${priceOldConfig.weight} ${priceOldConfig.size}px Arial`
+  const priceOldText = `${formatCurrency(Number(product.originalPrice))}`
+  ctx.fillText(priceOldText, priceOldConfig.x, priceOldConfig.y)
+
+  // Adiciona o "R$" ao lado do preço com uma fonte diferente
+  ctx.fillStyle = "#3f3f3f"
+  ctx.font = `${priceOldCurrencyConfig.weight} ${priceOldCurrencyConfig.size}px Arial`
+  const currencyOldText = "DE"
+  const currencyOldWidth = ctx.measureText(priceOldText).width
+  ctx.fillText(
+    currencyOldText,
+    priceOldConfig.x - currencyOldWidth - priceOldCurrencyConfig.margin,
+    priceOldConfig.y
+  )
+}
+
+
       // Adiciona o preço abaixo do título
       ctx.fillStyle = "white"
       ctx.font = `${priceConfig.weight} ${priceConfig.size}px Arial`
@@ -498,7 +541,7 @@ if (product.cupomValue) {
       // Adiciona o "R$" ao lado do preço com uma fonte diferente
       ctx.fillStyle = "white"
       ctx.font = `${priceCurrencyConfig.weight} ${priceCurrencyConfig.size}px Arial`
-      const currencyText = "R$"
+      const currencyText = "POR"
       const currencyWidth = ctx.measureText(priceText).width
       ctx.fillText(
         currencyText,
