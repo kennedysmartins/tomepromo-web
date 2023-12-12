@@ -158,7 +158,7 @@ export default function auth() {
                 color="neutral"
                 fullWidth
                 startDecorator={<GoogleIcon />}
-                onClick={() => signIn()}
+                onClick={() => signIn("google")}
               >
                 Continue com o Google
               </Button>
