@@ -102,7 +102,7 @@ const CreateProduct = () => {
     setIsAnalyzing(true)
     resetFormFieldsSearch(url)
     try {
-      const amazonData = "tomepromo06-20"
+      const amazonData = "tomepromo05-20"
       const magazineData = "magazinetomepromo154"
       const response = await axios.post(
         `${apiUrl}/api/extractor`,
