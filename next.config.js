@@ -8,6 +8,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    loader: "default", // Escolha o loader que você deseja usar
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -15,7 +17,6 @@ const nextConfig = {
       },
     ],
   },
-  // remotePatterns: ["m.media-amazon.com", 'offshop.app'],
 }
 
 module.exports = nextConfig
